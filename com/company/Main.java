@@ -2,9 +2,12 @@ package com.company;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-    	int i=-1;
-    	List<Account> acc = new ArrayList<Account>();
+	static int i=-1;
+	public static List<Account> acc = new ArrayList<Account>();
+	public static Scanner scanner = new Scanner(System.in);
+	public static void main(String[] args) {
+    	
+    	
     	while(true) {
     System.out.println("----Welcome to AMS----");
     System.out.println("Press the index no. for that operation");
@@ -21,9 +24,10 @@ public class Main {
     		+ "10 - Transfer Money\n"
     		+ "11 - Exit");
     
-    Scanner scanner = new Scanner(System.in);
+   
     System.out.print("Enter your choice: ");
     int input = scanner.nextInt();
+    
     if(input == 0) {
     	 //Account acc = new Account();
     	
@@ -37,8 +41,8 @@ public class Main {
     	 String phone_no = scanner.next();
     	 System.out.print("What type of account do you want(checking/savings)\n");
     	 String acc_type = scanner.next();
-   	
-    	 acc.add(new Account(name,address, phone_no,acc_type));
+
+    	 CreateAccount(acc,name,address,phone_no,acc_type);
     	 System.out.print("-------------"+i+"----------");
 
     }
@@ -49,22 +53,10 @@ public class Main {
 
     }
     else if(input == 2) {
-		System.out.print("---Login---"+"\nEnter your account number");
+    	System.out.print("---Login---"+"\nEnter your account number");
 		String a_no = scanner.next();
-
-		for(int j=0;j<=i;j++) {
-			System.out.print("aa = "+acc.get(j).account_no+"\n a_no = "+a_no);
-
-			if( Integer.parseInt(acc.get(j).account_no)  == Integer.parseInt(a_no)) {
-
-				i=j;
-				System.out.print(acc.get(i).obj.get(i).name+"Logged in \n");
-
-				 
-			}
-		}
-
-    	
+    	i=Login(a_no,acc,i);
+		
     }
     
     else if(input == 3)//Specify the interest rate (for savings acc only)
@@ -121,27 +113,20 @@ else if(input == 9) {
 }
 
 else if(input == 10) {
-	System.out.println("----Transfer Money----");
-    System.out.println("Enter the account number in which you want to send money\n");
-    String opt = scanner.next();
-    System.out.println("Enter the amount you want to send\n");
-    double amt = scanner.nextInt();
-    for(int j=0;j<=i;j++) {
-        System.out.println("Enter = "+acc.get(j).account_no+"\nbc = "+opt);
-
-    	if( Integer.parseInt(acc.get(j).account_no) == Integer.parseInt(opt)) {
-			acc.get(j).makeDeposit(amt);
-			acc.get(i).makeWithdrawal(amt);
-		    System.out.println("Amount Sent\n");
-
-    	}
-    }
+	
+	 System.out.println("----Transfer Money----");
+	    System.out.println("Enter the account number in which you want to send money\n");
+	    String opt = scanner.next();
+	    System.out.println("Enter the amount you want to send\n");
+	    double amt = scanner.nextInt();
+	   transfermoney(acc,opt,amt,i);
 	
 }
+    
 else if(input == 11) {
     System.out.println("Exited\n");
 
-	System.exit(0);
+	System.exit(0); 
 }
     
   
@@ -153,4 +138,54 @@ else if(input == 11) {
     
  
     }
+	
+	
+	public static double transfermoney(List<Account> acc,String opt,double amt,int l) {
+		
+		 for(int j=0;j<=l;j++) {
+		        System.out.println("Enter = "+acc.get(j).account_no+"\nbc = "+opt);
+
+		    	if( Integer.parseInt(acc.get(j).account_no) == Integer.parseInt(opt)) {
+		    		acc.get(j).makeDeposit(amt);
+		    		acc.get(l).makeWithdrawal(amt);
+				    System.out.println("Amount Sent\n");
+
+		    	}
+		    } 
+		 return amt;
+	}
+	
+	
+	
+	
+	
+	public static String CreateAccount(List<Account> acc,String name,String address,String phone_no,String acc_type){
+		 acc.add(new Account(name,address, phone_no, acc_type));
+		return name;
+		
+		
+	}
+	
+	public static int Login(String a_no,List<Account> acc,int l) {
+		
+		System.out.print("dfkmkiii "+l+"sism");
+
+		for(int j=0;j<=l;j++) {
+			System.out.print("aa = "+acc.get(j).account_no+"\n a_no = "+a_no);
+
+			if( Integer.parseInt(acc.get(j).account_no)  == Integer.parseInt(a_no)) {
+
+				l=j;
+				System.out.print(acc.get(l).obj.get(l).name+"Logged in \n");
+ 
+				 
+			}
+		}
+
+		return l;
+		
+		
+	} 
+
+
 }
