@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import org.junit.runners.MethodSorters;
 
+import junit.framework.Assert;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AMSTestingTest extends Main {
 
@@ -106,7 +108,19 @@ public class AMSTestingTest extends Main {
 		 System.out.println(rees);
 		assertEquals(expected, rees);	
 		}
-	
+
+	@Test
+//	@Order(6)
+	public void htestTestPrintstatementfalse() {
+		System.out.println("----testTestprintstatement----");
+
+		String expected ="Added amount 1000.0 \nWithdrew amount 300.0\n";	
+		System.out.println(p);
+		
+		 String rees= acc.get(p).printStatement();
+		 System.out.println(rees);
+		Assert.assertFalse(expected==rees);	
+		}
 
 	@Test
 //	@Order(6)
@@ -135,6 +149,26 @@ public class AMSTestingTest extends Main {
 		 System.out.println("\n"+ret+"\n");
 
 		assertEquals(200, ret);	
+
+		
+		
+	
+	}
+	
+	@Test
+	public void jtestTesttransferfalse() {
+		 System.out.println("----jtestTesttransfer----");
+
+		p++;
+		CreateAccount(acc,"Akram","F10","0404040","savings");
+		 System.out.println(acc.get(0).account_no);
+
+		 System.out.println("\n"+p+"\n");
+
+		double ret = transfermoney(acc,acc.get(0).account_no,200,p);
+		 System.out.println("\n"+ret+"\n");
+
+		Assert.assertFalse(ret==456);	
 
 		
 		
